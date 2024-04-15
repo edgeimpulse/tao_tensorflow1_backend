@@ -30,7 +30,7 @@ import tempfile
 import time
 
 import h5py
-import keras
+from tensorflow import keras
 import numpy as np
 
 from nvidia_tao_tf1.core.export._quantized import (
