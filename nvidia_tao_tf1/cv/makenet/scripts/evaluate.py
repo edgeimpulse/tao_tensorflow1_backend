@@ -23,9 +23,9 @@ import logging
 import os
 import sys
 
-import keras
-from keras import backend as K
-from keras.preprocessing.image import ImageDataGenerator
+from tensorflow import keras
+from tensorflow.keras import backend as K
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
 import numpy as np
 from PIL import ImageFile
