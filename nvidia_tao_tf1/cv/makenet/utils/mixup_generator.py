@@ -77,7 +77,7 @@ class MixupImageDataGenerator(Sequence):
         """Get number of steps per epoch."""
         return self.num_samples // self.batch_size
 
-    def __next__(self, index):
+    def __getitem__(self, index):
         """Get next batch input/output pair.
 
         Returns:
