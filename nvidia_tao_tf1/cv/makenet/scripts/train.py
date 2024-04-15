@@ -25,7 +25,7 @@ import os
 import sys
 
 from tensorflow.keras import backend as K
-from tensorflow.keras.preprocessing.image import ImageDataGenerator
+from keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.losses import CategoricalCrossentropy
 from PIL import ImageFile
 import six
