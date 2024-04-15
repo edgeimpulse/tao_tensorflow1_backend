@@ -29,10 +29,9 @@ import threading
 
 import tensorflow as tf
 
-from nvidia_tao_tf1.core.models.import_keras import keras as keras_fn
 from nvidia_tao_tf1.cv.yolo_v4.layers.split import Split
 
-keras = keras_fn()
+from tensorflow import keras
 
 bn_axis_map = {'channels_last': 3, 'channels_first': 1}
 
