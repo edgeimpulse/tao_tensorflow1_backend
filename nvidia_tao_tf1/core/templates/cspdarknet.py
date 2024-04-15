@@ -18,9 +18,9 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-from keras import backend as K
-from keras import layers
-from keras import models
+from tensorflow.keras import backend as K
+from tensorflow.keras import layers
+from tensorflow.keras import models
 
 from nvidia_tao_tf1.core.templates.utils import _mish_conv
 from nvidia_tao_tf1.core.templates.utils import arg_scope
@@ -79,10 +79,7 @@ def CSPDarkNet(nlayers,
     if input_tensor is None:
         img_input = layers.Input(shape=input_shape)
     else:
-        if not K.is_keras_tensor(input_tensor):
-            img_input = layers.Input(tensor=input_tensor)
-        else:
-            img_input = input_tensor
+        img_input = input_tensor
 
     with arg_scope([_mish_conv],
                    use_batch_norm=use_batch_norm,

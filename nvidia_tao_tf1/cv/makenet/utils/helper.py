@@ -16,8 +16,8 @@
 import os
 
 import cv2
-import keras
-from keras.utils.generic_utils import CustomObjectScope
+from tensorflow import keras
+from tensorflow.keras.utils import CustomObjectScope
 
 from numba import jit, njit
 import numpy as np
@@ -111,7 +111,7 @@ def get_input_shape(model):
     """Obtain input shape from a Keras model."""
     data_format = model.layers[1].data_format
     # Computing shape of input tensor
-    image_shape = model.layers[0].input_shape[1:4]
+    image_shape = model.layers[0].input_shape[0][1:4]
     # Setting input shape
     if data_format == "channels_first":
         nchannels, image_height, image_width = image_shape[0:3]
@@ -243,9 +243,9 @@ def setup_config(model, reg_config, freeze_bn=False, bn_config=None, custom_objs
 
         return call
 
-    prev_batchnorm_call = keras.layers.normalization.BatchNormalization.call
+    prev_batchnorm_call = keras.layers.BatchNormalization.call
     if freeze_bn:
-        keras.layers.normalization.BatchNormalization.call = compose_call(
+        keras.layers.BatchNormalization.call = compose_call(
             prev_batchnorm_call
         )
     if bn_config is not None:
@@ -296,5 +296,5 @@ def setup_config(model, reg_config, freeze_bn=False, bn_config=None, custom_objs
     updated_model.set_weights(model.get_weights())
     # restore the BN call method before return
     if freeze_bn:
-        keras.layers.normalization.BatchNormalization.call = prev_batchnorm_call
+        keras.layers.BatchNormalization.call = prev_batchnorm_call
     return updated_model

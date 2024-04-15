@@ -15,13 +15,13 @@
 """Shufflenet Encoder model template class."""
 
 import keras
-from keras import backend as K
-from keras.engine.topology import get_source_inputs
-from keras.layers import Activation, Add, Concatenate, Input
-from keras.layers import AveragePooling2D, BatchNormalization, Conv2D, MaxPooling2D
-from keras.layers import DepthwiseConv2D
-from keras.models import Model
-from keras_applications.imagenet_utils import _obtain_input_shape
+from tensorflow.keras import backend as K
+from tensorflow.keras.engine.topology import get_source_inputs
+from tensorflow.keras.layers import Activation, Add, Concatenate, Input
+from tensorflow.keras.layers import AveragePooling2D, BatchNormalization, Conv2D, MaxPooling2D
+from tensorflow.keras.layers import DepthwiseConv2D
+from tensorflow.keras.models import Model
+from tensorflow.keras_applications.imagenet_utils import _obtain_input_shape
 import numpy as np
 
 K.set_image_data_format('channels_first')

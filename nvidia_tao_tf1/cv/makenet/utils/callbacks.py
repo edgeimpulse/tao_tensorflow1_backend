@@ -18,7 +18,7 @@ from __future__ import print_function
 
 import warnings
 
-from keras.callbacks import ModelCheckpoint
+from tensorflow.keras.callbacks import ModelCheckpoint
 from nvidia_tao_tf1.cv.common.utils import encode_from_keras
 
 

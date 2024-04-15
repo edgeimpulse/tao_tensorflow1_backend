@@ -23,9 +23,9 @@ import logging
 import os
 import sys
 
-import keras
-from keras import backend as K
-from keras.preprocessing.image import ImageDataGenerator
+from tensorflow import keras
+from tensorflow.keras import backend as K
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
 import numpy as np
 from PIL import ImageFile
@@ -33,6 +33,7 @@ from sklearn.metrics import classification_report, confusion_matrix
 import tensorflow as tf
 
 import nvidia_tao_tf1.cv.common.logging.logging as status_logging
+import nvidia_tao_tf1.cv.common.no_warning
 from nvidia_tao_tf1.cv.common.utils import check_tf_oom, restore_eff
 from nvidia_tao_tf1.cv.makenet.spec_handling.spec_loader import load_experiment_spec
 from nvidia_tao_tf1.cv.makenet.utils.helper import get_input_shape, model_io, setup_config
@@ -200,7 +201,7 @@ def run_evaluate(args=None):
                         optimizer=opt)
 
     # print model summary
-    final_model.summary()
+    
 
     # Get input shape
     image_height, image_width, nchannels = get_input_shape(final_model)
@@ -317,6 +318,9 @@ def run_evaluate(args=None):
     logger.info("Calculating per-class P/R and confusion matrix. It may take a while...")
     Y_pred = final_model.predict_generator(target_iterator, len(target_iterator), workers=1)
     y_pred = np.argmax(Y_pred, axis=1)
+    X_val, Y_val = next(target_iterator)
+    np.save("/tmp/tao_X_val.npy", X_val)
+    np.save("/tmp/tao_Y_pred.npy", Y_pred)
     print('Confusion Matrix')
     print(confusion_matrix(target_iterator.classes, y_pred))
     print('Classification Report')

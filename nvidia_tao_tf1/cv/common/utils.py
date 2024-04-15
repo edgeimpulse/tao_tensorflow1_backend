@@ -30,11 +30,11 @@ import sys
 import tempfile
 
 from eff.core import Archive
-import keras
-from keras import backend as K
-from keras.optimizers import Adam, RMSprop, SGD
-from keras.regularizers import l1, l2
-from keras.utils.generic_utils import CustomObjectScope
+from tensorflow import keras
+from tensorflow.keras import backend as K
+from tensorflow.keras.optimizers import Adam, RMSprop, SGD
+from tensorflow.keras.regularizers import l1, l2
+from tensorflow.keras.utils import CustomObjectScope
 
 import numpy as np
 
@@ -86,7 +86,7 @@ MB = 1 << 20
 @lru_cache()
 def hvd_keras():
     """Lazily load and return the (cached) horovod module."""
-    import horovod.keras as hvd
+    import horovod.tensorflow.keras as hvd
 
     return hvd
 

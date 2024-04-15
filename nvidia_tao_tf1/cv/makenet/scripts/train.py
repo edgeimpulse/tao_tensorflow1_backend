@@ -24,8 +24,9 @@ import logging
 import os
 import sys
 
-from keras import backend as K
+from tensorflow.keras import backend as K
 from keras.preprocessing.image import ImageDataGenerator
+from tensorflow.keras.losses import CategoricalCrossentropy
 from PIL import ImageFile
 import six
 
@@ -33,6 +34,7 @@ import tensorflow as tf
 from nvidia_tao_tf1.core.utils import set_random_seed
 from nvidia_tao_tf1.cv.common.callbacks.loggers import TAOStatusLogger
 import nvidia_tao_tf1.cv.common.logging.logging as status_logging
+import nvidia_tao_tf1.cv.common.no_warning
 from nvidia_tao_tf1.cv.common.mlops.clearml import get_clearml_task
 from nvidia_tao_tf1.cv.common.model_parallelism.parallelize_model import model_parallelism
 from nvidia_tao_tf1.cv.common.utils import check_tf_oom, hvd_keras, restore_eff
@@ -565,7 +567,7 @@ def run_experiment(config_path=None, results_dir=None,
             model_config.freeze_bn
             )
     # Printing model summary
-    final_model.summary()
+    
 
     if init_epoch > 1 and not train_config.pretrained_model_path:
         raise ValueError("Make sure to load the correct model when setting initial epoch > 1.")
@@ -579,8 +581,7 @@ def run_experiment(config_path=None, results_dir=None,
     # Add Horovod Distributed Optimizer
     opt = hvd.DistributedOptimizer(opt)
     # Compiling model
-    cc = partial(categorical_crossentropy, label_smoothing=train_config.label_smoothing)
-    cc.__name__ = "categorical_crossentropy"
+    cc = CategoricalCrossentropy(label_smoothing=train_config.label_smoothing)
     final_model.compile(loss=cc, metrics=['accuracy'],
                         optimizer=opt)
 
@@ -596,7 +597,7 @@ def run_experiment(config_path=None, results_dir=None,
             json.dump(train_iterator.class_indices, classdump)
 
     # Commencing Training
-    final_model.fit_generator(
+    final_model.fit(
         train_iterator,
         steps_per_epoch=len(train_iterator) // hvd.size(),
         epochs=train_config.n_epochs,

@@ -18,10 +18,10 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-from keras import backend as K
-from keras.layers import Dense, Dropout, Flatten
-from keras.layers import MaxPooling2D
-from keras.models import Model
+from tensorflow.keras import backend as K
+from tensorflow.keras.layers import Dense, Dropout, Flatten
+from tensorflow.keras.layers import MaxPooling2D
+from tensorflow.keras.models import Model
 
 from nvidia_tao_tf1.core.templates.utils import arg_scope
 from nvidia_tao_tf1.core.templates.utils import CNNBlock

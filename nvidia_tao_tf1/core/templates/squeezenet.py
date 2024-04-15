@@ -18,9 +18,9 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-from keras import backend
-from keras import layers
-from keras import models
+from tensorflow.keras import backend
+from tensorflow.keras import layers
+from tensorflow.keras import models
 
 from nvidia_tao_tf1.core.templates.utils import arg_scope
 from nvidia_tao_tf1.core.templates.utils import fire_module
@@ -67,10 +67,7 @@ def SqueezeNet(inputs=None,
     if inputs is None:
         img_input = layers.Input(shape=input_shape, name="Input")
     else:
-        if not backend.is_keras_tensor(inputs):
-            img_input = layers.Input(tensor=inputs, shape=input_shape, name="Input")
-        else:
-            img_input = inputs
+        img_input = inputs
 
     x = layers.Conv2D(96,
                       kernel_size=(7, 7),

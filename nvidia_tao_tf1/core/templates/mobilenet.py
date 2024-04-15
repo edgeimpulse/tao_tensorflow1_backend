@@ -18,9 +18,9 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-from keras import backend
-from keras import layers
-from keras import models
+from tensorflow.keras import backend
+from tensorflow.keras import layers
+from tensorflow.keras import models
 
 from nvidia_tao_tf1.core.templates.utils import _conv_block, _depthwise_conv_block, \
                                 _inverted_res_block, _make_divisible
@@ -86,10 +86,7 @@ def MobileNet(inputs,
     if inputs is None:
         img_input = layers.Input(shape=input_shape)
     else:
-        if not backend.is_keras_tensor(inputs):
-            img_input = layers.Input(tensor=inputs, shape=input_shape)
-        else:
-            img_input = inputs
+        img_input = inputs
 
     with arg_scope([_conv_block, _depthwise_conv_block],
                    use_batch_norm=use_batch_norm,
@@ -216,10 +213,7 @@ def MobileNetV2(inputs,
     if inputs is None:
         img_input = layers.Input(shape=input_shape)
     else:
-        if not backend.is_keras_tensor(inputs):
-            img_input = layers.Input(tensor=inputs, shape=input_shape)
-        else:
-            img_input = inputs
+        img_input = inputs
 
     first_block_filters = _make_divisible(32 * alpha, 8)
     # Use explicit padding.

@@ -15,7 +15,8 @@
 import numpy as np
 
 
-class MixupImageDataGenerator():
+from tensorflow.keras.utils import Sequence
+class MixupImageDataGenerator(Sequence):
     """Mixup image generator."""
 
     def __init__(
@@ -76,7 +77,7 @@ class MixupImageDataGenerator():
         """Get number of steps per epoch."""
         return self.num_samples // self.batch_size
 
-    def __next__(self):
+    def __getitem__(self, index):
         """Get next batch input/output pair.
 
         Returns:

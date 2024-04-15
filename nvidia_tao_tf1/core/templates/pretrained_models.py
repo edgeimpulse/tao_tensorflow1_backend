@@ -19,9 +19,9 @@ from __future__ import division
 from __future__ import print_function
 
 import os
-from keras.layers import AveragePooling2D, Dense, Flatten, Input
-from keras.models import Model
-from keras.utils.data_utils import get_file
+from tensorflow.keras.layers import AveragePooling2D, Dense, Flatten, Input
+from tensorflow.keras.models import Model
+from tensorflow.keras.utils.data_utils import get_file
 from nvidia_tao_tf1.core.templates import resnet
 from nvidia_tao_tf1.core.templates import vgg
 
