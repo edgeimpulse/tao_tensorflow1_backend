@@ -243,9 +243,9 @@ def setup_config(model, reg_config, freeze_bn=False, bn_config=None, custom_objs
 
         return call
 
-    prev_batchnorm_call = keras.layers.normalization.BatchNormalization.call
+    prev_batchnorm_call = keras.layers.BatchNormalization.call
     if freeze_bn:
-        keras.layers.normalization.BatchNormalization.call = compose_call(
+        keras.layers.BatchNormalization.call = compose_call(
             prev_batchnorm_call
         )
     if bn_config is not None:
@@ -296,5 +296,5 @@ def setup_config(model, reg_config, freeze_bn=False, bn_config=None, custom_objs
     updated_model.set_weights(model.get_weights())
     # restore the BN call method before return
     if freeze_bn:
-        keras.layers.normalization.BatchNormalization.call = prev_batchnorm_call
+        keras.layers.BatchNormalization.call = prev_batchnorm_call
     return updated_model
