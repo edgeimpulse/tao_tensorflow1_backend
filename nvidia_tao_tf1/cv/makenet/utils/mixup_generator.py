@@ -15,7 +15,8 @@
 import numpy as np
 
 
-class MixupImageDataGenerator():
+from tensorflow.keras.utils import Sequence
+class MixupImageDataGenerator(Sequence):
     """Mixup image generator."""
 
     def __init__(
