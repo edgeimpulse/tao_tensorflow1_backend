@@ -16,8 +16,8 @@
 import os
 
 import cv2
-import keras
-from keras.utils.generic_utils import CustomObjectScope
+from tensorflow import keras
+from tensorflow.keras.utils import CustomObjectScope
 
 from numba import jit, njit
 import numpy as np
