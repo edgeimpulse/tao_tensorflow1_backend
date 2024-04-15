@@ -26,6 +26,7 @@ import sys
 
 from tensorflow.keras import backend as K
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
+from tensorflow.keras.losses import CategoricalCrossentropy
 from PIL import ImageFile
 import six
 
@@ -580,7 +581,7 @@ def run_experiment(config_path=None, results_dir=None,
     # Add Horovod Distributed Optimizer
     opt = hvd.DistributedOptimizer(opt)
     # Compiling model
-    cc = tensorflow.keras.losses.CategoricalCrossentropy(label_smoothing=train_config.label_smoothing)
+    cc = CategoricalCrossentropy(label_smoothing=train_config.label_smoothing)
     final_model.compile(loss=cc, metrics=['accuracy'],
                         optimizer=opt)
 
