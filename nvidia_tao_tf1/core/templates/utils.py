@@ -29,9 +29,10 @@ import threading
 
 import tensorflow as tf
 
+from nvidia_tao_tf1.core.models.import_keras import keras as keras_fn
 from nvidia_tao_tf1.cv.yolo_v4.layers.split import Split
 
-from tensorflow import keras
+keras = keras_fn()
 
 bn_axis_map = {'channels_last': 3, 'channels_first': 1}
 
@@ -882,7 +883,7 @@ def _inverted_res_block(inputs, expansion, stride, alpha, filters,
 
     """
     channel_axis = get_batchnorm_axis(data_format)
-    in_channels = inputs._keras_shape[channel_axis]
+    in_channels = inputs.shape[channel_axis]
     pointwise_conv_filters = int(filters * alpha)
     pointwise_filters = _make_divisible(pointwise_conv_filters, 8)
     x = inputs
