@@ -200,7 +200,7 @@ def run_evaluate(args=None):
                         optimizer=opt)
 
     # print model summary
-    final_model.summary()
+    
 
     # Get input shape
     image_height, image_width, nchannels = get_input_shape(final_model)

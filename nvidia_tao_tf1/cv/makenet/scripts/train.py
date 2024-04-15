@@ -565,7 +565,7 @@ def run_experiment(config_path=None, results_dir=None,
             model_config.freeze_bn
             )
     # Printing model summary
-    final_model.summary()
+    
 
     if init_epoch > 1 and not train_config.pretrained_model_path:
         raise ValueError("Make sure to load the correct model when setting initial epoch > 1.")
