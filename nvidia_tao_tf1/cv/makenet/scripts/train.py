@@ -144,14 +144,15 @@ def setup_callbacks(model_name, results_dir, lr_config,
     Returns:
         callbacks (list of keras.callbacks): list of callbacks.
     """
-    callbacks = []
+    callbacks = [hvd.callbacks.BroadcastGlobalVariablesCallback(0),
+                 hvd.callbacks.MetricAverageCallback()]
     max_iterations = iters_per_epoch * max_epoch
-    lrscheduler = build_lr_scheduler(lr_config, 1, max_iterations)
+    lrscheduler = build_lr_scheduler(lr_config, hvd.size(), max_iterations)
     init_step = (init_epoch - 1) * iters_per_epoch
     lrscheduler.reset(init_step)
     callbacks.append(lrscheduler)
 
-    if True:
+    if hvd.rank() == 0:
         # Set up the checkpointer.
         save_weights_dir = os.path.join(results_dir, 'weights')
         if not os.path.exists(save_weights_dir):
@@ -185,7 +186,7 @@ def setup_callbacks(model_name, results_dir, lr_config,
             results_dir,
             append=True,
             num_epochs=max_epoch,
-            is_master=True,
+            is_master=hvd.rank() == 0,
         )
         callbacks.append(status_logger)
 
@@ -380,6 +381,9 @@ def run_experiment(config_path=None, results_dir=None,
         init_epoch (int): The number of epoch to resume training.
         classmap (str): Path to the classmap file.
     """
+    # Horovod: initialize Horovod.
+    hvd = hvd_keras()
+    hvd.init()
     # Load experiment spec.
     if config_path is not None:
         # Create an experiment_pb2.Experiment object from the input file.
@@ -400,10 +404,10 @@ def run_experiment(config_path=None, results_dir=None,
         world_size = len(train_config.model_parallelism)
     else:
         world_size = 1
-    #gpus = list(range(hvd.local_rank() * world_size, (hvd.local_rank() + 1) * world_size))
-    #config.gpu_options.visible_device_list = ','.join([str(x) for x in gpus])
+    gpus = list(range(hvd.local_rank() * world_size, (hvd.local_rank() + 1) * world_size))
+    config.gpu_options.visible_device_list = ','.join([str(x) for x in gpus])
     K.set_session(tf.Session(config=config))
-    verbose = 1 
+    verbose = 1 if hvd.rank() == 0 else 0
     K.set_image_data_format('channels_first')
     # Configure the logger.
     logging.basicConfig(
@@ -412,8 +416,8 @@ def run_experiment(config_path=None, results_dir=None,
 
     # Set random seed.
     logger.debug("Random seed is set to {}".format(train_config.random_seed))
-    set_random_seed(train_config.random_seed + 0)
-    is_master = True
+    set_random_seed(train_config.random_seed + hvd.local_rank())
+    is_master = hvd.rank() == 0
     if is_master and not os.path.exists(results_dir):
         os.makedirs(results_dir)
     status_file = os.path.join(results_dir, "status.json")
@@ -429,7 +433,7 @@ def run_experiment(config_path=None, results_dir=None,
     tf.logging.set_verbosity(tf.logging.INFO)
 
     weight_histograms = False
-    if True:
+    if hvd.rank() == 0:
         if train_config.HasField("visualizer"):
             weight_histograms = train_config.visualizer.weight_histograms
             if train_config.visualizer.HasField("clearml_config"):
@@ -575,7 +579,7 @@ def run_experiment(config_path=None, results_dir=None,
         opt = build_optimizer(train_config.optimizer)
 
     # Add Horovod Distributed Optimizer
-    #opt = hvd.DistributedOptimizer(opt)
+    opt = hvd.DistributedOptimizer(opt)
     # Compiling model
     cc = CategoricalCrossentropy(label_smoothing=train_config.label_smoothing)
     final_model.compile(loss=cc, metrics=['accuracy'],
@@ -583,11 +587,11 @@ def run_experiment(config_path=None, results_dir=None,
 
     callbacks = setup_callbacks(model_config.arch, results_dir,
                                 train_config.lr_config,
-                                init_epoch, len(train_iterator) // 1,
+                                init_epoch, len(train_iterator) // hvd.size(),
                                 train_config.n_epochs, key,
                                 hvd, weight_histograms=weight_histograms)
     # Writing out class-map file for inference mapping
-    if True:
+    if hvd.rank() == 0:
         with open(os.path.join(results_dir, "classmap.json"), "w") \
              as classdump:
             json.dump(train_iterator.class_indices, classdump)
@@ -595,7 +599,7 @@ def run_experiment(config_path=None, results_dir=None,
     # Commencing Training
     final_model.fit(
         train_iterator,
-        steps_per_epoch=len(train_iterator) // 1,
+        steps_per_epoch=len(train_iterator) // hvd.size(),
         epochs=train_config.n_epochs,
         verbose=verbose,
         workers=train_config.n_workers,
@@ -606,9 +610,10 @@ def run_experiment(config_path=None, results_dir=None,
 
     # Evaluate the model on the full data set.
     status_logging.get_status_logger().write(message="Final model evaluation in progress.")
-    score = final_model.evaluate_generator(val_iterator,
+    score = hvd.allreduce(
+                final_model.evaluate_generator(val_iterator,
                                                len(val_iterator),
-                                               workers=train_config.n_workers)
+                                               workers=train_config.n_workers))
     kpi_data = {
         "validation_loss": float(score[0]),
         "validation_accuracy": float(score[1])
