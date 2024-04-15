@@ -580,9 +580,7 @@ def run_experiment(config_path=None, results_dir=None,
     # Add Horovod Distributed Optimizer
     opt = hvd.DistributedOptimizer(opt)
     # Compiling model
-    cc = partial(categorical_crossentropy, label_smoothing=train_config.label_smoothing)
-    cc.__name__ = "categorical_crossentropy"
-    final_model.compile(loss=cc, metrics=['accuracy'],
+    final_model.compile(loss='cc', metrics=['accuracy'],
                         optimizer=opt)
 
     callbacks = setup_callbacks(model_config.arch, results_dir,
