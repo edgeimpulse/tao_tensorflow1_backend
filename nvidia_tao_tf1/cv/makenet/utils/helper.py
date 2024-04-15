@@ -111,7 +111,7 @@ def get_input_shape(model):
     """Obtain input shape from a Keras model."""
     data_format = model.layers[1].data_format
     # Computing shape of input tensor
-    image_shape = model.layers[0].input_shape[1:4]
+    image_shape = model.layers[0].input_shape[0][1:4]
     # Setting input shape
     if data_format == "channels_first":
         nchannels, image_height, image_width = image_shape[0:3]
