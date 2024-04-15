@@ -76,10 +76,7 @@ def DarkNet(nlayers,
     if input_tensor is None:
         img_input = layers.Input(shape=input_shape)
     else:
-        if not K.is_keras_tensor(input_tensor):
-            img_input = layers.Input(tensor=input_tensor)
-        else:
-            img_input = input_tensor
+        img_input = input_tensor
 
     with arg_scope([_leaky_conv],
                    use_batch_norm=use_batch_norm,

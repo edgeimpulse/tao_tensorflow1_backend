@@ -67,10 +67,7 @@ def SqueezeNet(inputs=None,
     if inputs is None:
         img_input = layers.Input(shape=input_shape, name="Input")
     else:
-        if not backend.is_keras_tensor(inputs):
-            img_input = layers.Input(tensor=inputs, shape=input_shape, name="Input")
-        else:
-            img_input = inputs
+        img_input = inputs
 
     x = layers.Conv2D(96,
                       kernel_size=(7, 7),
