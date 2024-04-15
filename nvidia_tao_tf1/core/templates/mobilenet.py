@@ -18,9 +18,9 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-from keras import backend
-from keras import layers
-from keras import models
+from tensorflow.keras import backend
+from tensorflow.keras import layers
+from tensorflow.keras import models
 
 from nvidia_tao_tf1.core.templates.utils import _conv_block, _depthwise_conv_block, \
                                 _inverted_res_block, _make_divisible

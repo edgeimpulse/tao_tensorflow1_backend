@@ -18,7 +18,7 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-from keras.utils import get_custom_objects
+from tensorflow.keras.utils import get_custom_objects
 
 from nvidia_tao_tf1.core.templates import alexnet
 from nvidia_tao_tf1.core.templates import googlenet

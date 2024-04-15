@@ -18,16 +18,16 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-from keras import backend as K
-from keras.layers import Activation
-from keras.layers import AveragePooling2D
-from keras.layers import BatchNormalization
-from keras.layers import Conv2D
-from keras.layers import Dense, Flatten
-from keras.layers import Dropout
-# from keras.layers import Lambda
-from keras.layers import MaxPooling2D
-from keras.models import Model
+from tensorflow.keras import backend as K
+from tensorflow.keras.layers import Activation
+from tensorflow.keras.layers import AveragePooling2D
+from tensorflow.keras.layers import BatchNormalization
+from tensorflow.keras.layers import Conv2D
+from tensorflow.keras.layers import Dense, Flatten
+from tensorflow.keras.layers import Dropout
+# from tensorflow.keras.layers import Lambda
+from tensorflow.keras.layers import MaxPooling2D
+from tensorflow.keras.models import Model
 
 
 from nvidia_tao_tf1.core.templates.utils import arg_scope

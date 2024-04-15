@@ -18,9 +18,9 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-from keras import backend as K
-from keras import layers
-from keras import models
+from tensorflow.keras import backend as K
+from tensorflow.keras import layers
+from tensorflow.keras import models
 
 from nvidia_tao_tf1.core.templates.utils import _leaky_conv
 from nvidia_tao_tf1.core.templates.utils import arg_scope

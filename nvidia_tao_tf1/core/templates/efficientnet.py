@@ -19,8 +19,8 @@ from __future__ import print_function
 
 from copy import deepcopy
 
-from keras import backend as K
-from keras.layers import (
+from tensorflow.keras import backend as K
+from tensorflow.keras.layers import (
     Activation,
     AveragePooling2D,
     BatchNormalization,
@@ -31,7 +31,7 @@ from keras.layers import (
     Input,
     ZeroPadding2D
 )
-from keras.models import Model
+from tensorflow.keras.models import Model
 
 from nvidia_tao_tf1.core.templates.utils import (
     block,

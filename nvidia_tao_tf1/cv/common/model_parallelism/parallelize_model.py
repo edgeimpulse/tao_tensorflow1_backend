@@ -13,7 +13,7 @@
 # limitations under the License.
 """Utility to parallelize a Keras model for model parallelism in training."""
 
-import keras
+from tensorflow import keras
 import numpy as np
 import tensorflow as tf
 

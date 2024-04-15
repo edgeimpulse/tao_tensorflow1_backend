@@ -17,13 +17,13 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-from keras import backend as K
-from keras.layers import (
+from tensorflow.keras import backend as K
+from tensorflow.keras.layers import (
     Dense,
     GlobalAveragePooling2D,
     Input
 )
-from keras.models import Model
+from tensorflow.keras.models import Model
 
 from nvidia_tao_tf1.core.templates.utils import _mish_conv
 from nvidia_tao_tf1.core.templates.utils import arg_scope, csp_tiny_block
