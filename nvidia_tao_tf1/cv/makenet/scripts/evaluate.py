@@ -33,6 +33,7 @@ from sklearn.metrics import classification_report, confusion_matrix
 import tensorflow as tf
 
 import nvidia_tao_tf1.cv.common.logging.logging as status_logging
+import nvidia_tao_tf1.cv.common.no_warning
 from nvidia_tao_tf1.cv.common.utils import check_tf_oom, restore_eff
 from nvidia_tao_tf1.cv.makenet.spec_handling.spec_loader import load_experiment_spec
 from nvidia_tao_tf1.cv.makenet.utils.helper import get_input_shape, model_io, setup_config
