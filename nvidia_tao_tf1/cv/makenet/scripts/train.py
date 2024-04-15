@@ -597,7 +597,7 @@ def run_experiment(config_path=None, results_dir=None,
             json.dump(train_iterator.class_indices, classdump)
 
     # Commencing Training
-    final_model.fit_generator(
+    final_model.fit(
         train_iterator,
         steps_per_epoch=len(train_iterator) // hvd.size(),
         epochs=train_config.n_epochs,
