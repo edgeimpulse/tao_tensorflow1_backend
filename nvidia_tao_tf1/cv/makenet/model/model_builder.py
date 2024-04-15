@@ -18,9 +18,9 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-from keras.layers import AveragePooling2D, Dense, Flatten
-from keras.layers import Input
-from keras.models import Model
+from tensorflow.keras.layers import AveragePooling2D, Dense, Flatten
+from tensorflow.keras.layers import Input
+from tensorflow.keras.models import Model
 
 from nvidia_tao_tf1.core.templates.alexnet import AlexNet
 from nvidia_tao_tf1.core.templates.cspdarknet import CSPDarkNet
