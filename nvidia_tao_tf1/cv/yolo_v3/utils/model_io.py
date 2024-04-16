@@ -20,7 +20,7 @@ from __future__ import print_function
 
 import os
 import tempfile
-import keras
+from tensorflow import keras
 
 from nvidia_tao_tf1.cv.common.utils import CUSTOM_OBJS
 from nvidia_tao_tf1.cv.common.utils import load_keras_model

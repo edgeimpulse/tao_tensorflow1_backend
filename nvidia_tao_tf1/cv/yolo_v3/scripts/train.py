@@ -22,7 +22,7 @@ import argparse
 import logging
 import os
 
-from keras import backend as K
+from tensorflow.keras import backend as K
 import tensorflow as tf
 
 import nvidia_tao_tf1.cv.common.logging.logging as status_logging

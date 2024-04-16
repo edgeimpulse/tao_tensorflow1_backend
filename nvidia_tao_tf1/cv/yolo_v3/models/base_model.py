@@ -18,7 +18,7 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-from keras.layers import UpSampling2D
+from tensorflow.keras.layers import UpSampling2D
 
 from nvidia_tao_tf1.core.templates.utils import _leaky_conv
 from nvidia_tao_tf1.cv.common.models.backbones import get_backbone

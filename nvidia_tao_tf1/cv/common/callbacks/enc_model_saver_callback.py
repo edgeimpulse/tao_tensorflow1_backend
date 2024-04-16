@@ -3,7 +3,7 @@
 """Saver callback."""
 
 import os
-from keras.callbacks import Callback
+from tensorflow.keras.callbacks import Callback
 
 
 def _save_model(keras_model, model_path, key, save_format=None):
