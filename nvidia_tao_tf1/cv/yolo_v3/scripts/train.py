@@ -26,6 +26,7 @@ from tensorflow.keras import backend as K
 import tensorflow as tf
 
 import nvidia_tao_tf1.cv.common.logging.logging as status_logging
+import nvidia_tao_tf1.cv.common.no_warning
 from nvidia_tao_tf1.cv.common.utils import check_tf_oom, hvd_keras, initialize
 from nvidia_tao_tf1.cv.yolo_v3.models.utils import build_training_pipeline
 from nvidia_tao_tf1.cv.yolo_v3.utils.spec_loader import load_experiment_spec
@@ -88,8 +89,8 @@ def run_experiment(config_path, results_dir, key):
         sess,
         verbose
     )
-    if hvd.rank() == 0:
-        model.summary()
+    #if hvd.rank() == 0:
+        #model.summary()
     sess.run(get_init_ops())
     model.train(verbose)
     status_logging.get_status_logger().write(
