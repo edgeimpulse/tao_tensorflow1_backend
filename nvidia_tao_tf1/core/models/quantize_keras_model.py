@@ -17,8 +17,8 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-import keras
-from keras.layers import (
+from tensorflow import keras
+from tensorflow.keras.layers import (
     Add,
     Average,
     Concatenate,
@@ -28,9 +28,9 @@ from keras.layers import (
     Permute,
     Subtract,
 )
-from keras.layers import BatchNormalization, Conv2D, Conv2DTranspose, DepthwiseConv2D, Softmax
-from keras.layers import ELU, LeakyReLU, PReLU, ReLU
-from keras.layers.core import Activation
+from tensorflow.keras.layers import BatchNormalization, Conv2D, Conv2DTranspose, DepthwiseConv2D, Softmax
+from tensorflow.keras.layers import ELU, LeakyReLU, PReLU, ReLU
+from tensorflow.keras.layers import Activation
 from nvidia_tao_tf1.core.models.templates.qdq_layer import QDQ
 from nvidia_tao_tf1.core.models.templates.quantized_conv2d import QuantizedConv2D
 from nvidia_tao_tf1.core.models.templates.quantized_conv2dtranspose import QuantizedConv2DTranspose

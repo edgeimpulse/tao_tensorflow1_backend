@@ -20,13 +20,11 @@ from __future__ import print_function
 
 import logging
 
-import keras.backend as K
-from keras.backend import image_data_format
+import tensorflow.keras.backend as K
+from tensorflow.keras.backend import image_data_format
 
-from keras.backend.tensorflow_backend import _preprocess_padding
-
-from keras.layers import Conv2D
-from keras.layers import InputSpec
+from tensorflow.keras.layers import Conv2D
+from tensorflow.keras.layers import InputSpec
 
 import tensorflow as tf
 from tensorflow.python.ops import init_ops
@@ -37,6 +35,25 @@ logger = logging.getLogger(__name__)
 
 DATA_FORMAT_MAP = {"channels_first": "NCHW", "channels_last": "NHWC"}
 
+def _preprocess_padding(padding):
+    """Convert keras' padding to tensorflow's padding.
+
+    # Arguments
+        padding: string, `"same"` or `"valid"`.
+
+    # Returns
+        a string, `"SAME"` or `"VALID"`.
+
+    # Raises
+        ValueError: if `padding` is invalid.
+    """
+    if padding == 'same':
+        padding = 'SAME'
+    elif padding == 'valid':
+        padding = 'VALID'
+    else:
+        raise ValueError('Invalid padding:', padding)
+    return padding
 
 def _conv2d(
     x,
