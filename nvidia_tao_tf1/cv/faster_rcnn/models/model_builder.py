@@ -24,11 +24,11 @@ import shutil
 import sys
 import tempfile
 
-import keras
-from keras.callbacks import EarlyStopping, TerminateOnNaN
-from keras.layers import Conv2D, Dense, Input, TimeDistributed
-from keras.regularizers import l1, l2
-from keras.utils.generic_utils import CustomObjectScope
+from tensorflow import keras
+from tensorflow.keras.callbacks import EarlyStopping, TerminateOnNaN
+from tensorflow.keras.layers import Conv2D, Dense, Input, TimeDistributed
+from tensorflow.keras.regularizers import l1, l2
+from tensorflow.keras.utils import CustomObjectScope
 import numpy as np
 import tensorflow as tf
 
