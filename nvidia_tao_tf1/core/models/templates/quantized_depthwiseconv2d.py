@@ -213,7 +213,7 @@ class QuantizedDepthwiseConv2D(DepthwiseConv2D):
             num_bits=self.bitwidth,
         )
 
-        outputs = K.depthwise_conv2d(
+        outputs = tf.nn.depthwise_conv2d(
             inputs,
             kernel,
             strides=self.strides,
