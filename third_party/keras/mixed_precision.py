@@ -26,7 +26,7 @@ from tensorflow.keras import initializers
 from tensorflow.layers import InputSpec
 from keras.legacy import interfaces
 from tensorflow.keras.regularizers import Regularizer
-from tensorflow.keras.utils import conv_utils
+from tensorflow.python.keras.utils import conv_utils
 
 
 """Logger for Keras tensorflow backend."""
