@@ -21,11 +21,11 @@ from __future__ import print_function
 import logging
 
 from tensorflow import keras
-from tensorflow.keras import backend as K
-from tensorflow.keras import initializers
-from tensorflow.layers import InputSpec
+from tensorflow.python.keras import backend as K
+from tensorflow.python.keras import initializers
+from tensorflow.python.layers import InputSpec
 from keras.legacy import interfaces
-from tensorflow.keras.regularizers import Regularizer
+from tensorflow.python.keras.regularizers import Regularizer
 from tensorflow.python.keras.utils import conv_utils
 
 
