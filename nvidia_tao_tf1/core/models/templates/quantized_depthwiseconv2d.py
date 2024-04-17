@@ -212,17 +212,14 @@ class QuantizedDepthwiseConv2D(DepthwiseConv2D):
             signed_input=True,
             num_bits=self.bitwidth,
         )
-        if self.data_format == "channels_first":
-            data_format = "NCHW"
-        else:
-            data_format = "NHWC"
-        outputs = tf.nn.depthwise_conv2d(
+
+        outputs = K.depthwise_conv2d(
             inputs,
             kernel,
             strides=self.strides,
-            padding=self.padding.upper(),
-            dilations=self.dilation_rate,
-            data_format=data_format)
+            padding=self.padding,
+            dilation_rate=self.dilation_rate,
+            data_format=self.data_format)
 
         if self.use_bias:
             outputs = K.bias_add(
