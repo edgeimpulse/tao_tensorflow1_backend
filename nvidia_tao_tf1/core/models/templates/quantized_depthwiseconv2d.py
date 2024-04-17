@@ -28,7 +28,6 @@ import tensorflow as tf
 from tensorflow.python.ops import init_ops
 from tensorflow.python.ops import math_ops
 from tensorflow.python.training import moving_averages
-from tensorflow.python.keras.backend import depthwise_conv2d
 
 logger = logging.getLogger(__name__)
 
@@ -214,7 +213,7 @@ class QuantizedDepthwiseConv2D(DepthwiseConv2D):
             num_bits=self.bitwidth,
         )
 
-        outputs = depthwise_conv2d(
+        outputs = K.depthwise_conv2d(
             inputs,
             kernel,
             strides=self.strides,
