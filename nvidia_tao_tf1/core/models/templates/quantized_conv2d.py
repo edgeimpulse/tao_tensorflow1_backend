@@ -55,6 +55,33 @@ def _preprocess_padding(padding):
         raise ValueError('Invalid padding:', padding)
     return padding
 
+def _has_nchw_support():
+    """Check whether the current scope supports NCHW ops.
+
+    Tensorflow does not support NCHW on CPU. Therefore we check if we are not explicitly put on
+    CPU, and have GPUs available. In this case there will be soft-placing on the GPU device.
+
+    Returns:
+        bool: if the current scope device placement would support nchw.
+    """
+    # TODO:@subha This will be removed in the future when UNET completely moves to
+    # Tf.keras. Since unet uses estimator.train it internally converts the mdoel
+    # to tf.keras though model was built with pure keras. The _is_current_explicit_device
+    # has a function `_TfDeviceCaptureOp` that does not have attribute `_set_device_from_string`
+    # This is an error of keras backend: https://github.com/tensorflow/tensorflow/issues/30728
+    # Hence I catch the error and import from tensorflow.python.keras.backend
+    # that has the implementation for `_set_device_from_string`.
+    
+    try:
+        from keras.backend.tensorflow_backend import _is_current_explicit_device
+        explicitly_on_cpu = _is_current_explicit_device("CPU")
+    except AttributeError:
+        # If tf.keras is used
+        from tensorflow.python.keras.backend import _is_current_explicit_device
+        explicitly_on_cpu = _is_current_explicit_device("CPU")
+    gpus_available = True  # We always assume there is a GPU available.
+    return not explicitly_on_cpu and gpus_available
+
 def _conv2d(
     x,
     kernel,
@@ -116,7 +143,7 @@ def _conv2d(
         x = tf.pad(x, padding_pattern, mode="CONSTANT")
         padding = "valid"
 
-    nhwc_roundtrip = not K._has_nchw_support() and tf_data_format == "NCHW"
+    nhwc_roundtrip = not _has_nchw_support() and tf_data_format == "NCHW"
 
     if nhwc_roundtrip:
         tf_data_format = "NHWC"
