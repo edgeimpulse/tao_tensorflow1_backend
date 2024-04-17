@@ -235,7 +235,7 @@ def YOLO(input_tensor,  # pylint: disable=W0102
                     qat_model.get_layer('conv_mid_object').output,
                     qat_model.get_layer('conv_sm_object').output]
     #bgdet_dim = yolo_fcn[0].shape[1].value * yolo_fcn[0].shape[2].value * yolo_fcn[0].shape[3].value / (num_classes + 5) 
-    gdet = Reshape((int(147), num_classes + 5),
+    bgdet = Reshape((int(147), num_classes + 5),
                     name="bg_reshape")(Permute((2, 3, 1), name="bg_permute")(yolo_fcn[0]))
     #mgdet_dim = yolo_fcn[1].shape[1].value * yolo_fcn[1].shape[2].value * yolo_fcn[1].shape[3].value / (num_classes + 5) 
     mddet = Reshape((int(588), num_classes + 5),
