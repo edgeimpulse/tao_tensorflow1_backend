@@ -138,14 +138,14 @@ def np_get_anchor_hw(feature_map_size, anchor_size_hw):
     '''
 
     anchor_results = np.zeros((feature_map_size[0], feature_map_size[1], len(anchor_size_hw), 6))
-    x, y = np.meshgrid(np.arange(0, 1.0, 1.0 / feature_map_size[1]),
-                       np.arange(0, 1.0, 1.0 / feature_map_size[0]))
+    x, y = np.meshgrid(np.arange(0, 1.0, 1.0 / feature_map_size[1].value),
+                       np.arange(0, 1.0, 1.0 / feature_map_size[0].value))
     y = np.expand_dims(y, -1)
     x = np.expand_dims(x, -1)
     anchor_results[..., 0] += y
     anchor_results[..., 1] += x
-    anchor_results[..., 4] += 1.0 / feature_map_size[0]
-    anchor_results[..., 5] += 1.0 / feature_map_size[1]
+    anchor_results[..., 4] += 1.0 / feature_map_size[0].value
+    anchor_results[..., 5] += 1.0 / feature_map_size[1].value
 
     for idx, anchor in enumerate(anchor_size_hw):
         anchor_results[:, :, idx, 2] += float(anchor[0])
