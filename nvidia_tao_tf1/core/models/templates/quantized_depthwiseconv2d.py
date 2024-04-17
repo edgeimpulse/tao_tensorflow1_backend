@@ -217,7 +217,7 @@ class QuantizedDepthwiseConv2D(DepthwiseConv2D):
             inputs,
             kernel,
             strides=self.strides,
-            padding=self.padding,
+            padding=self.padding.upper(),
             dilations=self.dilation_rate,
             data_format=self.data_format)
 
