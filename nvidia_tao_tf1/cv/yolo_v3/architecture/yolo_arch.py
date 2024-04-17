@@ -234,12 +234,14 @@ def YOLO(input_tensor,  # pylint: disable=W0102
         yolo_fcn = [qat_model.get_layer('conv_big_object').output,
                     qat_model.get_layer('conv_mid_object').output,
                     qat_model.get_layer('conv_sm_object').output]
-
-    bgdet = Reshape((147, num_classes + 5),
+    bgdet_dim = yolo_fcn[0].shape[1] * yolo_fcn[0].shape[2] * yolo_fcn[0].shape[3] / (num_classes + 5) 
+    bgdet = Reshape((bgdet_dim, num_classes + 5),
                     name="bg_reshape")(Permute((2, 3, 1), name="bg_permute")(yolo_fcn[0]))
-    mddet = Reshape((588, num_classes + 5),
+    mgdet_dim = yolo_fcn[1].shape[1] * yolo_fcn[1].shape[2] * yolo_fcn[1].shape[3] / (num_classes + 5) 
+    mddet = Reshape((mgdet_dim, num_classes + 5),
                     name="md_reshape")(Permute((2, 3, 1), name="md_permute")(yolo_fcn[1]))
-    smdet = Reshape((2352, num_classes + 5),
+    smdet_dim = yolo_fcn[2].shape[1] * yolo_fcn[2].shape[2] * yolo_fcn[2].shape[3] / (num_classes + 5) 
+    smdet = Reshape((smdet_dim, num_classes + 5),
                     name="sm_reshape")(Permute((2, 3, 1), name="sm_permute")(yolo_fcn[2]))
 
     # build YOLO v3 anchor layers for corresponding feature maps. Anchor shapes are defined in args.
