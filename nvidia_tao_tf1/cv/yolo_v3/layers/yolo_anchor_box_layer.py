@@ -137,7 +137,7 @@ def np_get_anchor_hw(feature_map_size, anchor_size_hw):
         anchor_results: (cy, cx, ph, pw, step_y, step_x)
     '''
 
-    anchor_results = np.zeros((feature_map_size[0], feature_map_size[1], len(anchor_size_hw), 6))
+    anchor_results = np.zeros((feature_map_size[0].value, feature_map_size[1].value, len(anchor_size_hw), 6))
     x, y = np.meshgrid(np.arange(0, 1.0, 1.0 / feature_map_size[1].value),
                        np.arange(0, 1.0, 1.0 / feature_map_size[0].value))
     y = np.expand_dims(y, -1)
