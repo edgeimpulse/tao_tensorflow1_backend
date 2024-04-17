@@ -19,8 +19,8 @@ from __future__ import division
 from __future__ import print_function
 
 import logging
-from tensorflow.python import keras
-from tensorflow.python.keras.backend import image_data_format
+from tensorflow import keras
+from tensorflowkeras.backend import image_data_format
 from tensorflow.python.keras.backend import _preprocess_padding
 import tensorflow as tf
 from tensorflow.python.training import moving_averages
