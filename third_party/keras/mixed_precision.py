@@ -293,7 +293,7 @@ def _conv2dtranspose_call(self, inputs):
 def patch():
     """Apply the patches to the module."""
     _layer_add_weight.__name__ = "add_weight"
-    keras.Layer.add_weight = _layer_add_weight
+    keras.layers.Layer.add_weight = _layer_add_weight
     _batch_normalization_build.__name__ = "build"
     keras.layers.BatchNormalization.build = _batch_normalization_build
     _batch_normalization_call.__name__ = "call"
