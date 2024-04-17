@@ -24,7 +24,7 @@ from tensorflow import keras
 from tensorflow.keras import backend as K
 from tensorflow.keras import initializers
 from tensorflow.layers import InputSpec
-from tensorflow.keras.legacy import interfaces
+from keras.legacy import interfaces
 from tensorflow.keras.regularizers import Regularizer
 from tensorflow.keras.utils import conv_utils
 
