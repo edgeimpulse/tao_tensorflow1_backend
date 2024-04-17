@@ -92,7 +92,10 @@ def create_quantized_keras_model(model):
                 "Layers with multiple inbound nodes are not supported."
             )
         inbound_node = layer._inbound_nodes[0]
-        inbound_layers = [in_layer.name for in_layer in inbound_node.inbound_layers]
+        if not type(inbound_node.inbound_layers) == list:
+            inbound_layers = [in_layer.name for in_layer in [inbound_node.inbound_layers]]
+        else:
+            inbound_layers = [in_layer.name for in_layer in inbound_node.inbound_layers]
         if len(inbound_layers) > 0:
             network_dict["input_layers_of"].update({layer.name: inbound_layers})
 
