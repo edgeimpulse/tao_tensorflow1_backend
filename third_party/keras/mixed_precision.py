@@ -20,13 +20,13 @@ from __future__ import print_function
 
 import logging
 
-import keras
-from keras import backend as K
-from keras import initializers
-from keras.engine import InputSpec
-from keras.legacy import interfaces
-from keras.regularizers import Regularizer
-from keras.utils import conv_utils
+from tensorflow import keras
+from tensorflow.keras import backend as K
+from tensorflow.keras import initializers
+from tensorflow.keras.engine import InputSpec
+from tensorflow.keras.legacy import interfaces
+from tensorflow.keras.regularizers import Regularizer
+from tensorflow.keras.utils import conv_utils
 
 
 """Logger for Keras tensorflow backend."""
