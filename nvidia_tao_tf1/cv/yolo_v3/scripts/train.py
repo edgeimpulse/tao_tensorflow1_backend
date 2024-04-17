@@ -32,6 +32,10 @@ from nvidia_tao_tf1.cv.yolo_v3.models.utils import build_training_pipeline
 from nvidia_tao_tf1.cv.yolo_v3.utils.spec_loader import load_experiment_spec
 from nvidia_tao_tf1.cv.yolo_v3.utils.tensor_utils import get_init_ops
 
+#import third_party.keras.mixed_precision
+import third_party.keras.tensorflow_backend
+#third_party.keras.mixed_precision.patch()
+third_party.keras.tensorflow_backend.patch()
 
 logging.basicConfig(format='%(asctime)s [TAO Toolkit] [%(levelname)s] %(name)s %(lineno)d: %(message)s',
                     level='INFO')
