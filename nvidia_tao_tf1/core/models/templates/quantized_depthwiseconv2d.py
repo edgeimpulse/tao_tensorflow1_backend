@@ -218,7 +218,7 @@ class QuantizedDepthwiseConv2D(DepthwiseConv2D):
             kernel,
             strides=self.strides,
             padding=self.padding,
-            dilation_rate=self.dilation_rate,
+            dilations=self.dilation_rate,
             data_format=self.data_format)
 
         if self.use_bias:
