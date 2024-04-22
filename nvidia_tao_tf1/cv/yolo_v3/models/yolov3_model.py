@@ -6,11 +6,11 @@ import os
 import shutil
 import tempfile
 
-import keras
-from keras.backend import set_learning_phase
-from keras.callbacks import TerminateOnNaN
-from keras.layers import Input
-from keras.models import Model
+from tensorflow import keras
+from tensorflow.keras.backend import set_learning_phase
+from tensorflow.keras.callbacks import TerminateOnNaN
+from tensorflow.keras.layers import Input
+from tensorflow.keras.models import Model
 import numpy as np
 import six
 import tensorflow as tf

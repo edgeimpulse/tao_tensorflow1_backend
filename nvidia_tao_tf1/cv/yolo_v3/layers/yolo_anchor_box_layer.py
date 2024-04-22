@@ -6,8 +6,8 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-import keras.backend as K
-from keras.engine.topology import InputSpec, Layer
+import tensorflow.keras.backend as K
+from tensorflow.keras.layers import InputSpec, Layer
 import numpy as np
 import tensorflow as tf
 
@@ -50,8 +50,8 @@ class YOLOAnchorBox(Layer):
     def build(self, input_shape):
         """Layer build function."""
         self.input_spec = [InputSpec(shape=input_shape)]
-        if (input_shape[2] is not None) and (input_shape[3] is not None):
-            anchors = np_get_anchor_hw((input_shape[2], input_shape[3]),
+        if (input_shape[2].value is not None) and (input_shape[3].value is not None):
+            anchors = np_get_anchor_hw((input_shape[2].value, input_shape[3].value),
                                        [(i[1], i[0]) for i in self.anchor_size])
 
             # Build a 4D tensor so that TensorRT UFF parser can work correctly.
@@ -65,7 +65,7 @@ class YOLOAnchorBox(Layer):
             self.anchors = K.constant(anchors, dtype='float32')
 
         # (feature_map, n_boxes, 6)
-        super(YOLOAnchorBox, self).build(input_shape)
+        super(YOLOAnchorBox, self).build([x.value for x in input_shape])
 
     def call(self, x):
         '''

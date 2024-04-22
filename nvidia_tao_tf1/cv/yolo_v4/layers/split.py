@@ -18,7 +18,7 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-from keras.layers import Layer
+from tensorflow.keras.layers import Layer
 
 
 class Split(Layer):

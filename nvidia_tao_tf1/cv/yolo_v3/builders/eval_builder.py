@@ -18,7 +18,7 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-from keras.models import Model
+from tensorflow.keras.models import Model
 from nvidia_tao_tf1.cv.yolo_v3.layers.decode_layer import YOLODecodeLayer
 from nvidia_tao_tf1.cv.yolo_v3.layers.nms_layer import NMSLayer
 

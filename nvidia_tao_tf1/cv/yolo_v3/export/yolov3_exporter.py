@@ -21,8 +21,8 @@ from __future__ import print_function
 import os
 import tempfile
 
-from keras import backend as K
-from keras.models import Model
+from tensorflow.keras import backend as K
+from tensorflow.keras.models import Model
 
 import numpy as np
 

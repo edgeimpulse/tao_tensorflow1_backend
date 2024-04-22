@@ -21,7 +21,7 @@ import argparse
 import logging
 import os
 
-import keras.backend as K
+import tensorflow.keras.backend as K
 import numpy as np
 
 from nvidia_tao_tf1.cv.common.inferencer.inferencer import Inferencer

@@ -22,8 +22,8 @@ import logging
 import os
 import sys
 
-import keras.backend as K
-from keras.utils.data_utils import OrderedEnqueuer
+import tensorflow.keras.backend as K
+from tensorflow.keras.utils import OrderedEnqueuer
 import numpy as np
 import tensorflow as tf
 from tqdm import trange

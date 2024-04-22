@@ -20,9 +20,9 @@ from __future__ import print_function
 
 import logging
 
-import keras.backend as K
+import tensorflow.keras.backend as K
 
-from keras.layers import Conv2DTranspose
+from tensorflow.keras.layers import Conv2DTranspose
 
 import tensorflow as tf
 from tensorflow.python.keras.utils import conv_utils

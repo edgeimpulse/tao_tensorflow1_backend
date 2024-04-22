@@ -20,13 +20,13 @@ from __future__ import print_function
 
 import logging
 
-import keras.backend as K
-from keras.backend import image_data_format
+import tensorflow.keras.backend as K
+from tensorflow.keras.backend import image_data_format
 
-from keras.backend.tensorflow_backend import _preprocess_padding
+from tensorflow.python.keras.backend import _preprocess_padding
 
-from keras.layers import Conv2D
-from keras.layers import InputSpec
+from tensorflow.keras.layers import Conv2D
+from tensorflow.keras.layers import InputSpec
 
 import tensorflow as tf
 from tensorflow.python.ops import init_ops

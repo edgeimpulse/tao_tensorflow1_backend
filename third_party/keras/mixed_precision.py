@@ -20,13 +20,13 @@ from __future__ import print_function
 
 import logging
 
-import keras
-from keras import backend as K
-from keras import initializers
-from keras.engine import InputSpec
+from tensorflow import keras
+from tensorflow.keras import backend as K
+from tensorflow.keras import initializers
+from tensorflow.keras.layers import InputSpec
 from keras.legacy import interfaces
-from keras.regularizers import Regularizer
-from keras.utils import conv_utils
+from tensorflow.keras.regularizers import Regularizer
+from tensorflow.python.keras.utils import conv_utils
 
 
 """Logger for Keras tensorflow backend."""
@@ -293,7 +293,7 @@ def _conv2dtranspose_call(self, inputs):
 def patch():
     """Apply the patches to the module."""
     _layer_add_weight.__name__ = "add_weight"
-    keras.engine.Layer.add_weight = _layer_add_weight
+    keras.layers.Layer.add_weight = _layer_add_weight
     _batch_normalization_build.__name__ = "build"
     keras.layers.BatchNormalization.build = _batch_normalization_build
     _batch_normalization_call.__name__ = "call"

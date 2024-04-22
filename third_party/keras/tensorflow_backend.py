@@ -19,9 +19,9 @@ from __future__ import division
 from __future__ import print_function
 
 import logging
-import keras
-from keras.backend import image_data_format
-from keras.backend.tensorflow_backend import _preprocess_padding
+from tensorflow import keras
+from tensorflow.keras.backend import image_data_format
+from tensorflow.python.keras.backend import _preprocess_padding
 import tensorflow as tf
 from tensorflow.python.training import moving_averages
 
@@ -339,7 +339,7 @@ def _patch_backend_function(f):
     name = f.__name__
     logger.debug("Patching %s" % name)
     keras.backend.__setattr__(name, f)
-    keras.backend.tensorflow_backend.__setattr__(name, f)
+    # keras.backend.tensorflow_backend.__setattr__(name, f)
 
 
 def _patch_dataset_map():
@@ -379,7 +379,7 @@ def patch():
     _patch_backend_function(batch_normalization)
     _patch_backend_function(_has_nchw_support)
     _patch_dataset_map()
-    keras.layers.activations.__setattr__("softmax", softmax)
+    keras.layers.__setattr__("softmax", softmax)
     keras.layers.Flatten.call = flatten_call
     keras.backend.set_image_data_format("channels_first")
 

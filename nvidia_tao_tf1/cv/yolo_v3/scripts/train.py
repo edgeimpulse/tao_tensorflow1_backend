@@ -22,15 +22,20 @@ import argparse
 import logging
 import os
 
-from keras import backend as K
+from tensorflow.keras import backend as K
 import tensorflow as tf
 
 import nvidia_tao_tf1.cv.common.logging.logging as status_logging
+import nvidia_tao_tf1.cv.common.no_warning
 from nvidia_tao_tf1.cv.common.utils import check_tf_oom, hvd_keras, initialize
 from nvidia_tao_tf1.cv.yolo_v3.models.utils import build_training_pipeline
 from nvidia_tao_tf1.cv.yolo_v3.utils.spec_loader import load_experiment_spec
 from nvidia_tao_tf1.cv.yolo_v3.utils.tensor_utils import get_init_ops
 
+#import third_party.keras.mixed_precision
+import third_party.keras.tensorflow_backend
+#third_party.keras.mixed_precision.patch()
+third_party.keras.tensorflow_backend.patch()
 
 logging.basicConfig(format='%(asctime)s [TAO Toolkit] [%(levelname)s] %(name)s %(lineno)d: %(message)s',
                     level='INFO')
@@ -88,8 +93,8 @@ def run_experiment(config_path, results_dir, key):
         sess,
         verbose
     )
-    if hvd.rank() == 0:
-        model.summary()
+    #if hvd.rank() == 0:
+        #model.summary()
     sess.run(get_init_ops())
     model.train(verbose)
     status_logging.get_status_logger().write(

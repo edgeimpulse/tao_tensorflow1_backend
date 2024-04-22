@@ -20,9 +20,9 @@ from __future__ import print_function
 
 import logging
 
-import keras.backend as K
+import tensorflow.keras.backend as K
 
-from keras.layers import Layer
+from tensorflow.keras.layers import Layer
 import tensorflow as tf
 from tensorflow.python.ops import init_ops
 from tensorflow.python.ops import math_ops
