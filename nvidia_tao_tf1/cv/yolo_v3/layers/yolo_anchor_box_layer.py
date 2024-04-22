@@ -51,7 +51,7 @@ class YOLOAnchorBox(Layer):
         """Layer build function."""
         self.input_spec = [InputSpec(shape=input_shape)]
         if (input_shape[2].value is not None) and (input_shape[3].value is not None):
-            anchors = np_get_anchor_hw((input_shape[2], input_shape[3]),
+            anchors = np_get_anchor_hw((input_shape[2].value, input_shape[3].value),
                                        [(i[1], i[0]) for i in self.anchor_size])
 
             # Build a 4D tensor so that TensorRT UFF parser can work correctly.
