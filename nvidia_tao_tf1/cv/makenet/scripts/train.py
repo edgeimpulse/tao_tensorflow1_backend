@@ -160,7 +160,7 @@ def setup_callbacks(model_name, results_dir, lr_config,
         # Save encrypted models
         weight_filename = os.path.join(save_weights_dir,
                                        '%s_{epoch:03d}.hdf5' % model_name)
-        checkpointer = AdvModelCheckpoint(weight_filename, key, verbose=1)
+        checkpointer = AdvModelCheckpoint(weight_filename, key, verbose=1, keep_best_only=True)
         callbacks.append(checkpointer)
 
         # Set up the custom TensorBoard callback. It will log the loss
