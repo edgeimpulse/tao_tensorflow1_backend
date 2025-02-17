@@ -1,4 +1,7 @@
 # Copyright (c) 2023, NVIDIA CORPORATION.  All rights reserved.
+# Modifications Copyright 2024 EdgeImpulse Inc.
+#
+# NOT A CONTRIBUTION
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -567,7 +570,7 @@ def run_experiment(config_path=None, results_dir=None,
             model_config.freeze_bn
             )
     # Printing model summary
-    
+
 
     if init_epoch > 1 and not train_config.pretrained_model_path:
         raise ValueError("Make sure to load the correct model when setting initial epoch > 1.")

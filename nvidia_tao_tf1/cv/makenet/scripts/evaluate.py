@@ -1,4 +1,7 @@
 # Copyright (c) 2023, NVIDIA CORPORATION.  All rights reserved.
+# Modifications Copyright 2024 EdgeImpulse Inc.
+#
+# NOT A CONTRIBUTION
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -201,7 +204,7 @@ def run_evaluate(args=None):
                         optimizer=opt)
 
     # print model summary
-    
+
 
     # Get input shape
     image_height, image_width, nchannels = get_input_shape(final_model)

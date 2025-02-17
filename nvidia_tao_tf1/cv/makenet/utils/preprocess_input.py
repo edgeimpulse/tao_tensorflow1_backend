@@ -1,3 +1,7 @@
+# Modifications Copyright 2024 EdgeImpulse Inc.
+#
+# NOT A CONTRIBUTION
+
 """Utilities for ImageNet data preprocessing & prediction decoding."""
 
 from __future__ import absolute_import
